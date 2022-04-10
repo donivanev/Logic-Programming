@@ -4,6 +4,7 @@ list_is_list([]).
 list_is_list([_|_]).
 
 %First element
+
 list_first(X, [X|_]).
 
 %Last element
