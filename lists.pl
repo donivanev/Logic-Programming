@@ -129,7 +129,7 @@ list_preffix(P, L) :- list_append(P, _, L).
 
 %Is Suffix
 
-list_suffix(X, L) :- list_append(_, X, L).
+list_suffix(S, L) :- list_append(_, S, L).
 
 %Is Sublist
 
