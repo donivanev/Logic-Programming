@@ -26,6 +26,12 @@ all_primes(X) :- naturals(X), X > 1, not(is_not_prime(X)).
 factorial(0, 1).
 factorial(N, X) :- M is N - 1, factorial(M, Y), X is N * Y.
 
+% Fibonacci
+
+fib(0, 1).
+fib(Y, Z) :- fib(X, Y), Z is X + Y.
+fib(X) :- fib(X, _).
+
 % GCD of two numbers
 
 gcd(A, 0, A).
