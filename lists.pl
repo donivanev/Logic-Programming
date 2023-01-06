@@ -57,6 +57,15 @@ list_rev([H|T], Reversed) :- list_rev(T, RevT), list_concat(RevT, [H], Reversed)
 
 list_perm([], []).
 list_perm(L, [X|P]) :- list_delete(X, L, L1), list_perm(L1, P).
+%OR
+%permutation([], []).
+%permutation([H|T], P):- permutation(T, Q), insert(H, Q, P).
+
+% Remove duplicates
+
+list_remove_duplicates([], []).
+list_remove_duplicates([H|T], [H|R]) :- list_remove_duplicates(T, R), not(member(H, R)).
+list_remove_duplicates([H|T], R) :- list_remove_duplicates(T, R), member(H, R).
 
 % Shift
 
@@ -119,6 +128,12 @@ list_max([X, Y|Rest], Max) :- list_max([Y|Rest], MaxRest), max_(X, MaxRest, Max)
 
 list_sum([], 0).
 list_sum([H|T], Sum) :- list_sum(T, SumTemp), Sum is H + SumTemp.
+
+% Count occurrences of X in L
+
+count([], _, 0).
+count([H|T], H, N) :- count(T, H, M), N is M + 1.
+count([H|T], X, N) :- H \= X, count(T, X, N).
 
 % Is Preffix
 
