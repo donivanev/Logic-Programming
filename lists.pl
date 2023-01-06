@@ -131,6 +131,13 @@ list_preffix(P, L) :- list_append(P, _, L).
 
 list_suffix(S, L) :- list_append(_, S, L).
 
+% Set predicates
+in_union(X, A, B) :- member(X, A); member(X, B).
+in_intersection(X, A, B) :- member(X, A), member(X, B).
+in_difference(X, A, B) :- member(X, A), \+ member(X, B).
+is_subset_of(A, B) :- \+((member(X, A), \+(member(X, B)))).
+are_equal(A, B) :- is_subset_of(A, B), is_subset_of(B, A).
+
 %Is Sublist
 
 list_sublist(S, L) :- list_append(X, _, L), list_append(_, S, X).
@@ -140,6 +147,12 @@ list_sublist(S, L) :- list_append(X, _, L), list_append(_, S, X).
 list_sorted([]).
 list_sorted([_]).
 list_sorted([X, Y|L]) :- X < Y, list_sorted([Y|L]).
+%OR
+%is_sorted(L) :- not((append(_, [A, B|_], L), A > B)).
+
+%Simplest sort
+
+simplestSort(L, SL) :- permutation(L, SL), is_sorted(SL).
 
 %Merge sort
 
