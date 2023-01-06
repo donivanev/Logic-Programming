@@ -30,29 +30,19 @@ list_length([_|T], N) :- list_length(T, N1), N is N1 + 1.
 %Concatenation
 
 list_concat([], L, L).
-list_concat([X|L1], L2, [X|L3]) :- list_concat(L1, L2, L3).
-
-% ↑
-% "Concatenate" joins two specific items together.
-%
-% "Append" adds what you specify to whatever may already be there.
-% ↓
-
-%Append
+list_concat([X|T], L, [X|T2]) :- list_concat(T, L, T2).
+%OR
 %list_append(A, T, T) :- list_member(A, T), !.
 %list_append(A, T, [A|T]).
-% OR
-list_append([], L, L).
-list_append([H|T], X, [H|T2]) :- list_append(T, X, T2).
 
 %Delete
 
-%list_delete(X, [X|Xs], Xs).
-%list_delete(X, [Y|Ys]) :- list_delete(X, Ys, Zs).
-% OR
 list_delete(X, [X], []).
 list_delete(X, [X|L1], L1).
 list_delete(X, [Y|L2], [Y|L1]) :- list_delete(X, L2, L1).
+%OR
+%list_delete(X, [X|Xs], Xs).
+%list_delete(X, [Y|Ys]) :- list_delete(X, Ys, Zs).
 
 %Insert
 
@@ -121,9 +111,9 @@ list_min(X, [H|T]) :- list_min(N, T), min_(H, N, X).
 
 max_(X, Y, X) :- X >= Y.
 max_(X, Y, Y) :- X < Y.
-list_max_elem([X], X).
-list_max_elem([X, Y|Rest], Max) :- list_max_elem([Y|Rest], MaxRest),
-max_(X, MaxRest, Max).
+
+list_max([X], X).
+list_max([X, Y|Rest], Max) :- list_max([Y|Rest], MaxRest), max_(X, MaxRest, Max).
 
 %Sum
 
@@ -132,10 +122,10 @@ list_sum([H|T], Sum) :- list_sum(T, SumTemp), Sum is H + SumTemp.
 
 %Is Preffix
 
-%list_preffix([], L).
-%list_preffix([X|P], [X|L] ) :- list_prefix(P, L).
-% OR
 list_preffix(P, L) :- list_append(P, _, L).
+%OR
+%list_preffix([], L).
+%list_preffix([X|P], [X|L]) :- list_prefix(P, L).
 
 %Is Suffix
 
