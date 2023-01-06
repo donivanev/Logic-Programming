@@ -13,6 +13,15 @@ integer(X, Y) :- X > 0, (Y is X; Y is -X).
 between_(X, Y, X) :- X <= Y.
 between_(X, Y, Z) :- X < Y, X1 is X + 1, between_(X1, Y, Z).
 
+% Generate all finite lists of natural numbers
+
+genAll([]).
+genAll(L):- nat(N), between(1, N, K), S is N - K, genKS(K, S, L).
+
+% Generate pairs of naturals
+
+pairs(A, B) :- nat(N), between(0, N, A), B is N - A.
+
 % Prime number
 
 is_not_prime(X) :- X1 is X - 1, between_(2, X1), X mod Y =:= 0.
