@@ -189,3 +189,12 @@ merge([X|Rx], [Y|Ry], [Y|M]) :- X > Y, merge([X|Rx], Ry, M).
 mergesort([], []).    
 mergesort([X], [X]).
 mergesort([X, Y|R], S) :- split([X, Y|R], L1, L2), mergesort(L1, S1), mergesort(L2, S2), merge(S1, S2, S).
+
+% Quick sort
+
+partition([X|T], Y, [X|T2], Z) :- X <= Y, partition(T, Y, T2, Z).
+partition([X|T], Y, T2, [X|Z]) :- X > Y, partition(T, Y, T2, Z).
+partition([], Y, [], []).
+
+quicksort([X|Xs], Ys) :- partition(Xs, X, L, R), quicksort(L, Ls), quicksort(R, Rs), append(Ls, [X|Rs], Ys).
+quicksort([], []).
