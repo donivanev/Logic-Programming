@@ -22,11 +22,6 @@ list_element_at(X, [_|T], K) :- K > 1, K1 is K - 1, list_element_at(X, T, K1).
 list_member(X, [X|_]).
 list_member(X, [_|T]) :- list_member(X, T).
 
-% Length
-
-list_length([], 0).
-list_length([_|T], N) :- list_length(T, N1), N is N1 + 1.
-
 % Concatenation
 
 list_concat([], L, L).
@@ -34,6 +29,11 @@ list_concat([X|T], L, [X|T2]) :- list_concat(T, L, T2).
 %OR
 %list_append(A, T, T) :- list_member(A, T), !.
 %list_append(A, T, [A|T]).
+
+% Length
+
+list_length([], 0).
+list_length([_|T], N) :- list_length(T, N1), N is N1 + 1.
 
 % Delete
 
@@ -76,6 +76,10 @@ list_shift([H|T], Shifted) :- list_concat(T, [H], Shifted).
 list_order([X, Y|T]) :- X =< Y, list_order([Y|T]).
 list_order([_]).
 
+%Sublist
+
+sublist(R, L) :- append(_, S, L), append(R, _, S).
+
 % Subset
 
 list_subset([], []).
@@ -115,6 +119,8 @@ min_(X, Y, Y) :- X >= Y.
 
 list_min(X, [X]).
 list_min(X, [H|T]) :- list_min(N, T), min_(H, N, X).
+%OR
+%list_min(L, X) :- member(X, L), \+ ((member(Y, L), X \= Y, Y < X)).
 
 % Max 
 
@@ -123,6 +129,8 @@ max_(X, Y, Y) :- X < Y.
 
 list_max([X], X).
 list_max([X, Y|Rest], Max) :- list_max([Y|Rest], MaxRest), max_(X, MaxRest, Max).
+%OR
+%list_max(L, X) :- member(X, L), \+ ((member(Y, L), X \= Y, Y > X)).
 
 % Sum
 
