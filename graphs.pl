@@ -2,21 +2,11 @@
 %The edges can be represented in Prolog as facts:
 
 edge(1, 2).
-edge(1, 4).
-edge(1, 3).
-edge(2, 3).
-edge(2, 5).
-edge(3, 4).
-edge(3, 5).
-edge(4, 5).
 
-%To represent the fact that the edges are bi-directional 
-%Not a good idea, could lead to an infinite loop
+%To represent the fact that the edges are bi-directional. Not a good idea, could lead to an infinite loop
 edge(X, Y) :- edge(Y, X).
 
 %The right way
-%connected(X, Y) :- edge(X, Y).      These two are equivalent
-%connected(X, Y) :- edge(Y, X).      to the bottom line (; == or) 
 connected(X, Y) :- edge(X, Y) ; edge(Y, X).
 
 %Path from one node to another
@@ -65,5 +55,4 @@ cycle(E, C) :- member([X, Y], E), X \= Y, path(E, Y, X, P1), C = [X|P1].
 
 % Is connected
 
-connected(V, E):- not((member(X, V), member(Y, V), X \= Y, not(path(E, X, Y, _)))).
-
+connected(V, E) :- not((member(X, V), member(Y, V), X \= Y, not(path(E, X, Y, _)))).
