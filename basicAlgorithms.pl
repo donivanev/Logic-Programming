@@ -24,7 +24,7 @@ pairs(A, B) :- nat(N), between(0, N, A), B is N - A.
 
 % Prime number
 
-is_not_prime(X) :- X1 is X - 1, between_(2, X1), X mod Y =:= 0.
+is_prime(X) :- not(X1 is X - 1, between_(2, X1, N), X mod N =:= 0, X /= 1).
 
 % Generate all primes
 
